@@ -1,0 +1,85 @@
+import random
+
+#ROSTER
+roster = {"Jesus" : 9, " Chase" : 8, "John" : 9, "Becky" : 6, "Jimmy" : 3, "Mother" : 2, "Bryan" : 5, "Ken" : 6, "Ryu" : 4, "GunJack" : 3, "IndyJones" : 2, "Matt" : 3, "TheJew" : 10, "Jackmehof" : 5, "Tedd" : 5, "Stanley" : 7, "Dragon" : 5, "Jaqqie" : 3, "Thompson" : 7}
+
+
+def Fight():
+    
+    num_fights = 0
+    num_killed = 0
+    
+    game_on = (input("Fight? Yes or No?"))
+    if game_on == "Yes":
+        game_on = True
+    else:
+        game_on = False
+    
+    while game_on:
+        #FIGHTER CALCULATIONS
+        fighter = random.choice(list(roster))
+        fighter_base = roster[fighter]
+        fighter_multiplier = random.randint(1, 10)
+        fighter_performance = fighter_base * fighter_multiplier
+
+        #YOUR CALCULATIONS
+        your_base = 7
+        your_multiplier = random.randint(1, 10)
+        your_performance = your_base * your_multiplier
+        
+        def Summary():
+            print(f"\nSummary - {fighter} had a base of {fighter_base} and a multiplier of {fighter_multiplier} for a total of {fighter_performance}")
+            print(f"Summary - You had a base of {your_base} and a multiplier of {your_multiplier} for a total of {your_performance}")
+            print("--------------------------------------------------------------------------------------")
+        
+        #WIN
+        if your_performance > fighter_performance and abs(your_performance - fighter_performance) > 30:
+            print("--------------------------------------------------------------------------------------")
+            print(f"You won the fight against {fighter} and killed him!")
+            Summary()
+            num_killed += 1
+            num_fights += 1
+            game_on = True
+        elif your_performance > fighter_performance and abs(your_performance - fighter_performance) >= 15:
+            print("--------------------------------------------------------------------------------------")
+            print(f"You WON the fight against {fighter} clearly!")
+            Summary()
+            num_fights += 1
+            game_on = True
+        elif your_performance > fighter_performance and abs(your_performance - fighter_performance) < 15:
+            print("--------------------------------------------------------------------------------------")
+            print(f"You WON the fight against {fighter} but it was close!")
+            Summary()
+            num_fights += 1
+            game_on = True
+            
+        #LOSS
+        elif your_performance < fighter_performance and abs(your_performance - fighter_performance) > 30:
+            print("--------------------------------------------------------------------------------------")
+            print(f"You LOST the fight against {fighter} and got KILLED!")
+            Summary()
+            num_fights += 1
+            game_on = False
+            break
+        elif your_performance < fighter_performance and abs(your_performance - fighter_performance) >= 15:
+            print("--------------------------------------------------------------------------------------")
+            print(f"You LOST the fight against {fighter} clearly!")
+            Summary()
+            num_fights += 1
+            game_on = True
+        elif your_performance < fighter_performance and abs(your_performance - fighter_performance) < 15:
+            print("--------------------------------------------------------------------------------------")
+            print(f"You LOST the fight against {fighter} but it was close!")
+            Summary()
+            num_fights += 1
+            game_on = True
+            
+        # TIE
+        elif your_performance == fighter_performance:
+            print(f"You and {fighter} tied in the fight!")
+            Summary()
+            num_fights += 1
+            game_on = True
+            
+    print("\n\n=========== THE END!!!!!!!!! ===========")
+    print(f"You got in {num_fights} fights and killed {num_killed} people before dying")
